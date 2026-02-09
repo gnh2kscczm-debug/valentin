@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valentinstag 💘</title>
+
+  <!-- Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFA9C7;
+      font-family: 'Montserrat', sans-serif;
+      overflow: hidden;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 42px 36px;
+      border-radius: 28px;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.18);
+      max-width: 420px;
+      width: 100%;
+      animation: cardIn 0.8s ease;
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    h1 {
+      color: #FFA9C7;
+      font-weight: 700;
+      margin-bottom: 28px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 110px;
+    }
+
+    button {
+      padding: 14px 30px;
+      border: none;
+      border-radius: 40px;
+      font-size: 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    #yes {
+      background: #FFA9C7;
+      color: white;
+    }
+
+    #yes:hover {
+      transform: scale(1.08);
+    }
+
+    #no {
+      position: absolute;
+      background: #f2f2f2;
+      color: #666;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .love {
+      margin-top: 24px;
+      color: #FFA9C7;
+      font-size: 18px;
+      line-height: 1.5;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .pinterest {
+      margin-top: 26px;
+      display: flex;
+      justify-content: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    iframe {
+      border-radius: 18px;
+      max-width: 100%;
+    }
+
+    /* 🤍 floating hearts */
+    .heart {
+      position: fixed;
+      font-size: 22px;
+      pointer-events: none;
+      animation: floatUp 3s ease forwards;
+    }
+
+    @keyframes floatUp {
+      from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-160px) scale(1.5);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>Willst du mein Valentin sein? 🤍</h1>
+
+    <div class="buttons">
+      <button id="yes">Ja 💖</button>
+      <button id="no">Nein 🙄</button>
+    </div>
+
+    <div id="message" class="love hidden">
+      Yay 🤍<br><br>
+      Dann gehören mein Herz & ich offiziell für immer dir 🥰
+
+      <div id="loveGif" class="pinterest hidden">
+        <iframe
+          src="https://assets.pinterest.com/ext/embed.html?id=7670261862095048"
+          width="300"
+          height="340"
+          frameborder="0"
+          scrolling="no">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🎷 Romantic Jazz Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_5c8c4b7c60.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const noButton = document.getElementById("no");
+    const yesButton = document.getElementById("yes");
+    const message = document.getElementById("message");
+    const loveGif = document.getElementById("loveGif");
+    const bgMusic = document.getElementById("bgMusic");
+
+    noButton.addEventListener("mouseover", () => {
+      const x = Math.random() * 240 - 120;
+      const y = Math.random() * 80 - 40;
+      noButton.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    yesButton.addEventListener("click", () => {
+      message.classList.remove("hidden");
+      document.querySelector(".buttons").classList.add("hidden");
+      loveGif.classList.remove("hidden");
+
+      /* 🎷 start romantic jazz */
+      bgMusic.volume = 0.35;
+      bgMusic.play();
+
+      /* 📳 vibration (mobile only) */
+      if (navigator.vibrate) {
+        navigator.vibrate([120, 60, 120]);
+      }
+
+      /* 🤍 heart explosion – distributed */
+      for (let i = 0; i < 18; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = "🤍";
+
+        // zufällige Position ÜBERALL im Viewport
+        const startX = Math.random() * window.innerWidth;
+        const startY = Math.random() * window.innerHeight;
+
+        heart.style.left = startX + "px";
+        heart.style.top = startY + "px";
+
+        // kleine zufällige Bewegung
+        const moveX = (Math.random() - 0.5) * 80;
+        const moveY = -80 - Math.random() * 80;
+
+        heart.style.transform = `translate(${moveX}px, ${moveY}px) scale(1)`;
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 3000);
+      }
+    });
+  </script>
+
+</body>
+</html>
